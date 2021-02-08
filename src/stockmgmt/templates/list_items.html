@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+<main role="main" class="container">
+    <div class= "jumbotron">
+        <div class="header">{{ header }}</div>
+        <form method='POST' action=''>{% csrf_token %}
+            {{form|crispy}}
+                <input type="submit" value='Search'/>
+        </form>
+        <br>
+        <div class="display_table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Count</th>
+                        <th>Category</th>
+                        <th>Item name</th>
+                        <th>Quantity In Store</th>
+                        <th>DELETE</th>
+                    </tr>
+                </thead>
+                {% for instance in queryset %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ instance.category }}</td>
+                        <td><a href="{% url 'update_items' instance.id %}">{{ instance.item_name }}</a></td>
+                        <td>{{ instance.quantity }}</td>
+                        <td><a href="{% url 'delete_items' instance.id %}"><img src=" {% static 'img/delete.png' %}" alt=""></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+    </div>
+</main>
+
+{% endblock %}
