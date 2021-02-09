@@ -1,2 +1,2 @@
 # Stock-Management
-SMS || Django
+Store Managent System||Django
